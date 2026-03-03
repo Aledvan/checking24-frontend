@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { usePageTitle } from "@/hooks/usePageTitle";
+import Index from "./pages/Index";
 import Overview from "./pages/Overview";
 import Monitoring from "./pages/Monitoring";
 import Incidents from "./pages/Incidents";
@@ -20,6 +22,12 @@ import VerifyEmail from "./pages/VerifyEmail";
 
 const queryClient = new QueryClient();
 
+// Wrapper component for index route
+const IndexPage = () => {
+  usePageTitle("Добро пожаловать");
+  return <Index />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -29,7 +37,7 @@ const App = () => (
         <AuthProvider>
           <Routes>
             {/* Public routes */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<IndexPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/recover" element={<Recover />} />

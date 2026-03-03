@@ -4,8 +4,11 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { api, Site, DashboardStats, CreateSiteData } from "@/lib/api";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useState, useEffect } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Overview = () => {
+  usePageTitle("Обзор");
+  
   const [showAddModal, setShowAddModal] = useState(false);
   const [sites, setSites] = useState<Site[]>([]);
   const [stats, setStats] = useState<DashboardStats | null>(null);

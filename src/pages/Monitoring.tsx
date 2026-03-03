@@ -3,8 +3,10 @@ import { Plus, ExternalLink, RotateCw, Pencil, Trash2, Loader2, X } from "lucide
 import { api, Site, CreateSiteData, UpdateSiteData } from "@/lib/api";
 import { StatusBadge } from "@/components/StatusBadge";
 import { cn } from "@/lib/utils";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Monitoring = () => {
+  usePageTitle("Мониторинг");
   const [sites, setSites] = useState<Site[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
