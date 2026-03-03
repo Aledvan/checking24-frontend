@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { api, Warning } from "@/lib/api";
 import { ShieldAlert, Globe, Calendar, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Alerts = () => {
+  usePageTitle("Предупреждения");
   const [warnings, setWarnings] = useState<Warning[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

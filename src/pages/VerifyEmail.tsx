@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const VerifyEmail = () => {
+  usePageTitle("Подтверждение email");
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
 

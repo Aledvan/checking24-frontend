@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { api, Incident } from "@/lib/api";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Clock, AlertCircle, Loader2 } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Incidents = () => {
+  usePageTitle("Инциденты");
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

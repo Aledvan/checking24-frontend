@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { User, Bell, Shield, Loader2, Check } from "lucide-react";
 import { api, User as UserType } from "@/lib/api";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const SettingsPage = () => {
+  usePageTitle("Настройки");
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
 
