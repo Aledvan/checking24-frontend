@@ -246,7 +246,7 @@ const Monitoring = () => {
       {/* Add Modal */}
       {showAddModal && (
         <SiteModal
-          title="Добавить сайт"
+          title="Добавить мониторинг сайта"
           onClose={() => setShowAddModal(false)}
           onSubmit={handleAddSite}
         />
@@ -284,6 +284,8 @@ const SiteModal = ({ title, site, onClose, onSubmit }: SiteModalProps) => {
   const [name, setName] = useState(site?.name || "");
   const [url, setUrl] = useState(site?.url || "");
   const [isActive, setIsActive] = useState(site?.isActive ?? true);
+  const [checkSsl, setCheckSsl] = useState(site?.checkSsl ?? true);
+  const [checkDomain, setCheckDomain] = useState(site?.checkDomain ?? true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -295,6 +297,8 @@ const SiteModal = ({ title, site, onClose, onSubmit }: SiteModalProps) => {
     const data: CreateSiteData | UpdateSiteData = {
       name,
       url,
+      checkSsl,
+      checkDomain,
       ...(site && { isActive }),
     };
 
@@ -341,6 +345,36 @@ const SiteModal = ({ title, site, onClose, onSubmit }: SiteModalProps) => {
                 placeholder="https://example.com"
                 required
               />
+            </div>
+
+            <div className="py-5 space-y-4">
+              <div className="flex items-center gap-3">
+                <label className="relative cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={checkSsl}
+                    onChange={e => setCheckSsl(e.target.checked)}
+                  />
+                  <div className="w-10 h-5 rounded-full bg-secondary peer-checked:bg-primary transition-colors"></div>
+                  <div className="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-foreground transition-transform peer-checked:translate-x-5"></div>
+                </label>
+                <span className="text-sm text-muted-foreground">Проверка SSL-сертификата</span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <label className="relative cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={checkDomain}
+                    onChange={e => setCheckDomain(e.target.checked)}
+                  />
+                  <div className="w-10 h-5 rounded-full bg-secondary peer-checked:bg-primary transition-colors"></div>
+                  <div className="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-foreground transition-transform peer-checked:translate-x-5"></div>
+                </label>
+                <span className="text-sm text-muted-foreground">Проверка домена</span>
+              </div>
             </div>
 
             {site && (
