@@ -83,6 +83,25 @@ const Monitoring = () => {
     return date.toLocaleDateString('ru-RU');
   };
 
+  const formatExpiryDate = (dateStr: string | null) => {
+    if (!dateStr) return null;
+
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = date.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+    const formattedDate = date.toLocaleDateString('ru-RU');
+
+    if (diffDays < 0) {
+      return { text: `${formattedDate} (истёк)`, isExpired: true, isWarning: false };
+    } else if (diffDays <= 30) {
+      return { text: `${formattedDate} (${diffDays} дн.)`, isExpired: false, isWarning: true };
+    } else {
+      return { text: `${formattedDate} (${diffDays} дн.)`, isExpired: false, isWarning: false };
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -196,12 +215,22 @@ const Monitoring = () => {
 
               {/* Additional info */}
               <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border text-xs text-muted-foreground">
-                {site.sslExpiresAt && (
-                  <span>SSL: {site.sslExpiresAt}</span>
-                )}
-                {site.domainExpiresAt && (
-                  <span>Домен: {site.domainExpiresAt}</span>
-                )}
+                {(() => {
+                  const ssl = formatExpiryDate(site.sslExpiresAt);
+                  return (
+                    <span className={cn(ssl?.isExpired && "text-destructive", ssl?.isWarning && "text-warning")}>
+                      SSL: {ssl ? ssl.text : "—"}
+                    </span>
+                  );
+                })()}
+                {(() => {
+                  const domain = formatExpiryDate(site.domainExpiresAt);
+                  return (
+                    <span className={cn(domain?.isExpired && "text-destructive", domain?.isWarning && "text-warning")}>
+                      Домен: {domain ? domain.text : "—"}
+                    </span>
+                  );
+                })()}
                 {site.httpStatusCode && (
                   <span>HTTP: {site.httpStatusCode}</span>
                 )}
