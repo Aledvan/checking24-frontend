@@ -313,6 +313,8 @@ interface Site {
   responseTime: number;
   checkInterval: number;
   isActive: boolean;
+  checkSsl?: boolean;
+  checkDomain?: boolean;
   lastCheckAt: string | null;
   sslExpiresAt: string | null;
   domainExpiresAt: string | null;
@@ -323,6 +325,8 @@ interface CreateSiteData {
   name: string;
   url: string;
   checkInterval?: number;
+  checkSsl?: boolean;
+  checkDomain?: boolean;
 }
 
 interface UpdateSiteData {
@@ -330,6 +334,8 @@ interface UpdateSiteData {
   url: string;
   checkInterval?: number;
   isActive?: boolean;
+  checkSsl?: boolean;
+  checkDomain?: boolean;
 }
 
 interface Incident {
