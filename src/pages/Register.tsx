@@ -243,11 +243,7 @@ const Register = () => {
               />
               <span className="text-xs text-muted-foreground">
                 Я согласен с{" "}
-                <a href="#" className="text-primary hover:text-primary/80 transition-colors">
-                  условиями использования
-                </a>{" "}
-                и{" "}
-                <a href="#" className="text-primary hover:text-primary/80 transition-colors">
+                <a href="https://checking24.ru/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
                   политикой конфиденциальности
                 </a>
               </span>
